@@ -26,7 +26,7 @@ public class FelineParametrizedTest {
     }
 
     @Parameterized.Parameters
-    public static Collection numbers() {
+    public static Collection testParameters() {
         return Arrays.asList(new Object[][] {
                 { -1, -1, RuntimeException.class },
                 { 0, 0, null },
