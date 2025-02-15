@@ -33,16 +33,12 @@ public class CatTest {
     }
 
     @Test
-    public void getFood() {
-        try {
-            List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
-            List<String> actualFood = cat.getFood();
+    public void getFood() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        List<String> actualFood = cat.getFood();
 
-            String failMessage = String.format("Ожидалось что кошки едят %s, но получено %s", expectedFood, actualFood);
+        String failMessage = String.format("Ожидалось что кошки едят %s, но получено %s", expectedFood, actualFood);
 
-            assertTrue(failMessage, expectedFood.containsAll(actualFood));
-        } catch (Exception e) {
-            fail(String.format("Не ожидалось исключение, но было перехвачено: %s %s", e.getClass().getSimpleName(), e.getMessage()));
-        }
+        assertTrue(failMessage, expectedFood.containsAll(actualFood));
     }
 }

@@ -11,17 +11,13 @@ public class FelineTest {
     private static final Feline FELINE = new Feline();
 
     @Test
-    public void eatMeat() {
-        try {
-            List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
-            List<String> actualFood = FELINE.eatMeat();
+    public void eatMeat() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        List<String> actualFood = FELINE.eatMeat();
 
-            String failMessage = String.format("Ожидалось что кошачьи едят %s, но получено %s", expectedFood, actualFood);
+        String failMessage = String.format("Ожидалось что кошачьи едят %s, но получено %s", expectedFood, actualFood);
 
-            assertTrue(failMessage, expectedFood.containsAll(actualFood));
-        } catch (Exception e) {
-            fail(String.format("Не ожидалось исключение, но было перехвачено: %s %s", e.getClass().getSimpleName(), e.getMessage()));
-        }
+        assertTrue(failMessage, expectedFood.containsAll(actualFood));
     }
 
     @Test

@@ -37,18 +37,14 @@ public class LionParametrizedTest {
     }
 
     @Test
-    public void testInstantiateLion() {
+    public void testInstantiateLion() throws Exception {
         if(expectedException != null) {
             Exception exception = assertThrows("Ожидалось исключение, но ничего не было сгененрировано", expectedException, () -> new Lion(sex, feline));
             assertEquals(expectedException, exception.getClass());
         } else {
-            try {
-                Lion lion = new Lion(sex, feline);
-                boolean actualHasMane = lion.doesHaveMane();
-                assertEquals(String.format("Ожидался hasMane = %s, но получен = %s", expectedHasMane, actualHasMane), expectedHasMane, actualHasMane);
-            } catch (Exception e) {
-                fail(String.format("Не ожидалось исключение, но было перехвачено: %s %s", e.getClass().getSimpleName(), e.getMessage()));
-            }
+            Lion lion = new Lion(sex, feline);
+            boolean actualHasMane = lion.doesHaveMane();
+            assertEquals(String.format("Ожидался hasMane = %s, но получен = %s", expectedHasMane, actualHasMane), expectedHasMane, actualHasMane);
         }
     }
 }

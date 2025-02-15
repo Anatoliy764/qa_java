@@ -17,12 +17,8 @@ public class LionTest {
     private static Lion lion;
 
     @BeforeClass
-    public static void setUp() {
-        try {
-            lion = new Lion("Самка", Mockito.spy(Feline.class));
-        } catch (Exception e) {
-            fail(String.format("Не ожидалось исключение, но было перехвачено: %s %s", e.getClass().getSimpleName(), e.getMessage()));
-        }
+    public static void setUp() throws Exception {
+        lion = new Lion("Самка", Mockito.spy(Feline.class));
     }
 
     @Test
@@ -31,16 +27,12 @@ public class LionTest {
     }
 
     @Test
-    public void getFood() {
-        try {
-            List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
-            List<String> actualFood = lion.getFood();
+    public void getFood() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        List<String> actualFood = lion.getFood();
 
-            String failMessage = String.format("Ожидалось что львы едят %s, но получено %s", expectedFood, actualFood);
+        String failMessage = String.format("Ожидалось что львы едят %s, но получено %s", expectedFood, actualFood);
 
-            assertTrue(failMessage, expectedFood.containsAll(actualFood));
-        } catch (Exception e) {
-            fail(String.format("Не ожидалось исключение, но было перехвачено: %s %s", e.getClass().getSimpleName(), e.getMessage()));
-        }
+        assertTrue(failMessage, expectedFood.containsAll(actualFood));
     }
 }
