@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
@@ -17,20 +18,31 @@ public class CatTest {
 
     @BeforeClass
     public static void setUp() {
-        cat = new Cat(Mockito.mock(Feline.class));
+        Feline feline = spy(Feline.class);
+        cat = new Cat(feline);
     }
 
     @Test
     public void getSound() {
-        assertEquals("Мяу", cat.getSound());
+        String expectedSound = "Мяу";
+        String actualSound = cat.getSound();
+
+        String failMessage = String.format("Кошка не мяукает. Ожидалось: \"%s\", но получено: \"%s\"", expectedSound, actualSound);
+
+        assertEquals(failMessage, expectedSound, actualSound);
     }
 
     @Test
     public void getFood() {
         try {
-            assertTrue(List.of("Животные", "Птицы", "Рыба").containsAll(cat.getFood()));
+            List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+            List<String> actualFood = cat.getFood();
+
+            String failMessage = String.format("Ожидалось что кошки едят %s, но получено %s", expectedFood, actualFood);
+
+            assertTrue(failMessage, expectedFood.containsAll(actualFood));
         } catch (Exception e) {
-            fail(e.getMessage());
+            fail(String.format("Не ожидалось исключение, но было перехвачено: %s %s", e.getClass().getSimpleName(), e.getMessage()));
         }
     }
 }

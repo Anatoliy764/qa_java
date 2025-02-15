@@ -39,7 +39,11 @@ public class FelineParametrizedTest {
         if(expectedException != null) {
             assertThrows(expectedException, () -> FELINE.getKittens(inputKittens));
         } else {
-            assertEquals(expectedKittens, FELINE.getKittens(inputKittens));
+            int actualKittens = FELINE.getKittens(inputKittens);
+
+            String failMessage = String.format("Ожидалось количество котят %d, но получено %s",expectedKittens, actualKittens);
+
+            assertEquals(failMessage, expectedKittens, actualKittens);
         }
     }
 }
