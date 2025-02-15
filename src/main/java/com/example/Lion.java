@@ -6,7 +6,11 @@ public class Lion {
 
     boolean hasMane;
 
-    public Lion(String sex) throws Exception {
+    public Lion(String sex, Feline feline) throws Exception {
+        if(feline == null) {
+            throw new IllegalArgumentException("feline не инициализирован");
+        }
+        this.feline = feline;
         if ("Самец".equals(sex)) {
             hasMane = true;
         } else if ("Самка".equals(sex)) {
@@ -16,7 +20,7 @@ public class Lion {
         }
     }
 
-    Feline feline = new Feline();
+    Feline feline;
 
     public int getKittens() {
         return feline.getKittens();
