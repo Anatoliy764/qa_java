@@ -27,7 +27,7 @@ public class LionAlexTest {
     @Test
     public void getKittens() {
 
-        int expectedKittens = 1;
+        int expectedKittens = 0;
         int actualKittens = lionAlex.getKittens();
 
         String failMessage = String.format("У льва Алекса не было котят, но получено %s", expectedKittens, actualKittens);
@@ -42,7 +42,7 @@ public class LionAlexTest {
 
         String failMessage = String.format("Ожидалось что у льва Алекса в друзьях только %s, но получено %s", expectedValue, actualValue);
 
-        assertTrue(failMessage, expectedValue.containsAll(actualValue));
+        assertEquals(failMessage, actualValue, expectedValue);
     }
 
     @Test

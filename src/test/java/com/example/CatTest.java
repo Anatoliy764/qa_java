@@ -1,10 +1,13 @@
 package com.example;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import java.util.List;
 
@@ -16,9 +19,13 @@ public class CatTest {
 
     private static Cat cat;
 
-    @BeforeClass
-    public static void setUp() {
-        Feline feline = spy(Feline.class);
+    @Before
+    public void setUp() throws Exception {
+        Feline feline = mock(Feline.class);
+
+        when(feline.eatMeat())
+                .thenReturn(List.of("Животные", "Птицы", "Рыба"));
+
         cat = new Cat(feline);
     }
 
@@ -39,6 +46,6 @@ public class CatTest {
 
         String failMessage = String.format("Ожидалось что кошки едят %s, но получено %s", expectedFood, actualFood);
 
-        assertTrue(failMessage, expectedFood.containsAll(actualFood));
+        assertEquals(failMessage, expectedFood, actualFood);
     }
 }

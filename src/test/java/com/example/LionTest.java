@@ -1,24 +1,48 @@
 package com.example;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
 
     private static Lion lion;
 
-    @BeforeClass
-    public static void setUp() throws Exception {
-        lion = new Lion("Самка", Mockito.spy(Feline.class));
+    @Mock
+    private Feline feline;
+
+    @Before
+    public void setUp() throws Exception {
+
+        when(feline.getFood(anyString()))
+                .thenAnswer((Answer<List<String>>) invocationOnMock -> {
+                    String animalKind = invocationOnMock.getArgument(0);
+                    if ("Травоядное".equals(animalKind)) {
+                        return List.of("Трава", "Различные растения");
+                    } else if ("Хищник".equals(animalKind)) {
+                        return List.of("Животные", "Птицы", "Рыба");
+                    } else {
+                        throw new Exception("Неизвестный вид животного, используйте значение Травоядное или Хищник");
+                    }
+                });
+
+        when(feline.getKittens())
+                .thenReturn(1);
+
+        lion = new Lion("Самка", feline);
     }
 
     @Test
@@ -33,6 +57,6 @@ public class LionTest {
 
         String failMessage = String.format("Ожидалось что львы едят %s, но получено %s", expectedFood, actualFood);
 
-        assertTrue(failMessage, expectedFood.containsAll(actualFood));
+        assertEquals(failMessage, actualFood, expectedFood);
     }
 }

@@ -17,7 +17,7 @@ public class FelineTest {
 
         String failMessage = String.format("Ожидалось что кошачьи едят %s, но получено %s", expectedFood, actualFood);
 
-        assertTrue(failMessage, expectedFood.containsAll(actualFood));
+        assertEquals(failMessage, actualFood, expectedFood);
     }
 
     @Test
